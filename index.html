@@ -146,13 +146,13 @@
     .status .route line   { stroke: url(#routeShimmer); }
     .status .route stop   { stop-color: var(--accent); }
 
-    .status .route .shim-a   { animation: shimEnd   5.6s ease-in-out infinite; }
-    .status .route .shim-mid { animation: shimMid   5.6s ease-in-out infinite; }
-    .status .route .shim-b   { animation: shimStart 5.6s ease-in-out infinite; }
+    .status .route .shim-a   { animation: shimEnd   4s ease-in-out infinite; }
+    .status .route .shim-mid { animation: shimMid   4s ease-in-out infinite; }
+    .status .route .shim-b   { animation: shimStart 4s ease-in-out infinite; }
 
-    @keyframes shimEnd   { 0%, 100% { stop-opacity: 1; }    50% { stop-opacity: 0.25; } }
-    @keyframes shimMid   { 0%, 50%, 100% { stop-opacity: 0.25; } 25%, 75% { stop-opacity: 1; } }
-    @keyframes shimStart { 0%, 100% { stop-opacity: 0.25; } 50% { stop-opacity: 1; } }
+    @keyframes shimEnd   { 0%, 100% { stop-opacity: 1; }    50% { stop-opacity: 0.2; } }
+    @keyframes shimMid   { 0%, 50%, 100% { stop-opacity: 0.2; } 25%, 75% { stop-opacity: 1; } }
+    @keyframes shimStart { 0%, 100% { stop-opacity: 0.2; } 50% { stop-opacity: 1; } }
 
     /* ── Skyline details ── */
 
@@ -199,7 +199,7 @@
 <main>
   <h1>Vojtech Jasny</h1>
   <p class="tagline">I build things that should exist.</p>
-  <p class="status">Berlin<svg class="route" width="32" height="6" viewBox="0 0 32 6" role="img" aria-label="and"><defs><linearGradient id="routeShimmer" gradientUnits="userSpaceOnUse" x1="2.5" x2="29.5" y1="0" y2="0"><stop class="shim-a" offset="0"/><stop class="shim-mid" offset="0.5"/><stop class="shim-b" offset="1"/></linearGradient></defs><circle cx="2.5" cy="3" r="1.3"/><line x1="5.5" y1="3" x2="26.5" y2="3" stroke-width="0.7" stroke-dasharray="2 1.5"/><circle cx="29.5" cy="3" r="1.3"/></svg>Prague</p>
+  <p class="status">Berlin<svg class="route" width="48" height="9" viewBox="0 0 32 6" role="img" aria-label="and"><defs><linearGradient id="routeShimmer" gradientUnits="userSpaceOnUse" x1="2.5" x2="29.5" y1="0" y2="0"><stop class="shim-a" offset="0"/><stop class="shim-mid" offset="0.5"/><stop class="shim-b" offset="1"/></linearGradient></defs><circle cx="2.5" cy="3" r="1.3"/><line x1="5.5" y1="3" x2="26.5" y2="3" stroke-width="0.7" stroke-dasharray="2 1.5"/><circle cx="29.5" cy="3" r="1.3"/></svg>Prague</p>
 
   <nav>
     <a href="https://github.com/voy">github</a>

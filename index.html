@@ -21,18 +21,6 @@
         h >= 8 && h < 17  ? 'day'  :
         h >= 17 && h < 20 ? 'dusk' : 'night';
     })();
-
-    // TEMP: click anywhere (outside links) to cycle sky bands for testing
-    document.addEventListener('DOMContentLoaded', function () {
-      var bands = ['dawn', 'day', 'dusk', 'night'];
-      document.addEventListener('click', function (e) {
-        if (e.target.closest('a')) return;
-        var root = document.documentElement;
-        var i = bands.indexOf(root.dataset.sky);
-        root.dataset.sky = bands[(i + 1) % bands.length];
-        console.log('sky:', root.dataset.sky);
-      });
-    });
   </script>
   <style>
     @font-face {

@@ -11,6 +11,29 @@
   <meta property="og:url" content="https://voy.cz/">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="preload" as="font" type="font/woff2" href="fonts/literata-latin.woff2" crossorigin>
+  <script>
+    (function () {
+      var h = Number(new Intl.DateTimeFormat('en-US', {
+        hour: 'numeric', hour12: false, timeZone: 'Europe/Berlin'
+      }).format(new Date()));
+      document.documentElement.dataset.sky =
+        h >= 5 && h < 8   ? 'dawn' :
+        h >= 8 && h < 17  ? 'day'  :
+        h >= 17 && h < 20 ? 'dusk' : 'night';
+    })();
+
+    // TEMP: click anywhere (outside links) to cycle sky bands for testing
+    document.addEventListener('DOMContentLoaded', function () {
+      var bands = ['dawn', 'day', 'dusk', 'night'];
+      document.addEventListener('click', function (e) {
+        if (e.target.closest('a')) return;
+        var root = document.documentElement;
+        var i = bands.indexOf(root.dataset.sky);
+        root.dataset.sky = bands[(i + 1) % bands.length];
+        console.log('sky:', root.dataset.sky);
+      });
+    });
+  </script>
   <style>
     @font-face {
       font-family: "Literata";
@@ -53,6 +76,23 @@
       .status .route { color: #0550ae; }
       .status .route stop { stop-color: #0550ae; }
     }
+
+    /* Sky tint by Berlin hour — barely perceptible. */
+    @media (prefers-color-scheme: dark) {
+      html[data-sky="dawn"]  { --bg: color-mix(in oklab, #0d1117, #ff8a5c 5%); }
+      html[data-sky="day"]   { --bg: color-mix(in oklab, #0d1117, #7ec6ff 3%); }
+      html[data-sky="dusk"]  { --bg: color-mix(in oklab, #0d1117, #c67aff 5%); }
+      html[data-sky="night"] { --bg: #0d1117; }
+    }
+
+    @media (prefers-color-scheme: light) {
+      html[data-sky="dawn"]  { --bg: color-mix(in oklab, #ffffff, #ff8a5c 4%); }
+      html[data-sky="day"]   { --bg: #ffffff; }
+      html[data-sky="dusk"]  { --bg: color-mix(in oklab, #ffffff, #c67aff 4%); }
+      html[data-sky="night"] { --bg: color-mix(in oklab, #ffffff, #4a5fa8 3%); }
+    }
+
+    body { transition: background-color 1.5s ease; }
 
     @media (prefers-reduced-motion: reduce) {
       .window, .beacon { animation: none; }

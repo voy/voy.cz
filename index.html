@@ -44,6 +44,7 @@
       --skyline-c: #252c35;
       --skyline-d: #2d333b;
       --ring:      #3a4250;
+      --route:     #c2a978;
     }
 
     @media (prefers-color-scheme: light) {
@@ -59,25 +60,42 @@
         --skyline-c: #424a53;
         --skyline-d: #1f2328;
         --ring:      #555d68;
+        --route:     #7a5c35;
       }
       .window { display: none; }
-      .status .route { color: #7a5c35; }
-      .status .route stop { stop-color: #7a5c35; }
     }
 
-    /* Sky tint by Berlin hour — subtle but visible. */
+    /* Sky tint by Berlin hour — subtle but visible. Route shimmer tracks the sky. */
     @media (prefers-color-scheme: dark) {
-      html[data-sky="dawn"]  { --bg: color-mix(in oklab, #0d1117, #ff8a5c 10%); }
-      html[data-sky="day"]   { --bg: color-mix(in oklab, #0d1117, #7ec6ff 7%);  }
-      html[data-sky="dusk"]  { --bg: color-mix(in oklab, #0d1117, #8a7dff 10%); }
+      html[data-sky="dawn"]  {
+        --bg:    color-mix(in oklab, #0d1117, #ff8a5c 10%);
+        --route: color-mix(in oklab, #c2a978, #ff8a5c 25%);
+      }
+      html[data-sky="day"]   {
+        --bg:    color-mix(in oklab, #0d1117, #7ec6ff 7%);
+        --route: color-mix(in oklab, #c2a978, #7ec6ff 15%);
+      }
+      html[data-sky="dusk"]  {
+        --bg:    color-mix(in oklab, #0d1117, #8a7dff 10%);
+        --route: color-mix(in oklab, #c2a978, #c67aff 20%);
+      }
       html[data-sky="night"] { --bg: #0d1117; }
     }
 
     @media (prefers-color-scheme: light) {
-      html[data-sky="dawn"]  { --bg: color-mix(in oklab, #ffffff, #ff8a5c 9%); }
+      html[data-sky="dawn"]  {
+        --bg:    color-mix(in oklab, #ffffff, #ff8a5c 9%);
+        --route: color-mix(in oklab, #7a5c35, #ff8a5c 25%);
+      }
       html[data-sky="day"]   { --bg: #ffffff; }
-      html[data-sky="dusk"]  { --bg: color-mix(in oklab, #ffffff, #8a7dff 9%); }
-      html[data-sky="night"] { --bg: color-mix(in oklab, #ffffff, #4a5fa8 7%); }
+      html[data-sky="dusk"]  {
+        --bg:    color-mix(in oklab, #ffffff, #8a7dff 9%);
+        --route: color-mix(in oklab, #7a5c35, #c67aff 20%);
+      }
+      html[data-sky="night"] {
+        --bg:    color-mix(in oklab, #ffffff, #4a5fa8 7%);
+        --route: color-mix(in oklab, #7a5c35, #4a5fa8 15%);
+      }
     }
 
     body { transition: background-color 1.5s ease; }
@@ -176,12 +194,12 @@
       display: inline-block;
       vertical-align: middle;
       margin: 0 8px;
-      color: #c2a978;
+      color: var(--route);
     }
 
     .status .route circle { fill: url(#routeShimmer); }
     .status .route line   { stroke: url(#routeShimmer); }
-    .status .route stop   { stop-color: #c2a978; }
+    .status .route stop   { stop-color: var(--route); }
 
     .status .route .shim-a   { animation: shimEnd   4s ease-in-out infinite; }
     .status .route .shim-mid { animation: shimMid   4s ease-in-out infinite; }

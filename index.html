@@ -65,19 +65,19 @@
       .status .route stop { stop-color: #7a5c35; }
     }
 
-    /* Sky tint by Berlin hour — barely perceptible. */
+    /* Sky tint by Berlin hour — subtle but visible. */
     @media (prefers-color-scheme: dark) {
-      html[data-sky="dawn"]  { --bg: color-mix(in oklab, #0d1117, #ff8a5c 5%); }
-      html[data-sky="day"]   { --bg: color-mix(in oklab, #0d1117, #7ec6ff 3%); }
-      html[data-sky="dusk"]  { --bg: color-mix(in oklab, #0d1117, #c67aff 5%); }
+      html[data-sky="dawn"]  { --bg: color-mix(in oklab, #0d1117, #ff8a5c 10%); }
+      html[data-sky="day"]   { --bg: color-mix(in oklab, #0d1117, #7ec6ff 7%);  }
+      html[data-sky="dusk"]  { --bg: color-mix(in oklab, #0d1117, #8a7dff 10%); }
       html[data-sky="night"] { --bg: #0d1117; }
     }
 
     @media (prefers-color-scheme: light) {
-      html[data-sky="dawn"]  { --bg: color-mix(in oklab, #ffffff, #ff8a5c 4%); }
+      html[data-sky="dawn"]  { --bg: color-mix(in oklab, #ffffff, #ff8a5c 9%); }
       html[data-sky="day"]   { --bg: #ffffff; }
-      html[data-sky="dusk"]  { --bg: color-mix(in oklab, #ffffff, #c67aff 4%); }
-      html[data-sky="night"] { --bg: color-mix(in oklab, #ffffff, #4a5fa8 3%); }
+      html[data-sky="dusk"]  { --bg: color-mix(in oklab, #ffffff, #8a7dff 9%); }
+      html[data-sky="night"] { --bg: color-mix(in oklab, #ffffff, #4a5fa8 7%); }
     }
 
     body { transition: background-color 1.5s ease; }

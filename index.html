@@ -251,12 +251,12 @@
       justify-content: center;
     }
 
-    footer svg { display: block; width: 340px; height: 181px; }
+    footer svg { display: block; width: 340px; height: 204px; }
 
     /* ── Mobile ── */
 
     @media (max-width: 540px) {
-      footer svg { width: 140px; height: 75px; }
+      footer svg { width: 140px; height: 84px; }
     }
 
   </style>
@@ -283,7 +283,7 @@
 
 <footer>
   <!-- ── Berlin skyline ── -->
-  <svg width="150" height="80" viewBox="0 0 150 80">
+  <svg width="150" height="90" viewBox="0 -10 150 90">
     <!-- Left building cluster -->
     <path d="M0,78 L0,70 L8,70 L8,63 L15,63 L15,58 L21,58 L21,62 L27,62 L27,67 L33,67 L33,71 L40,71 L40,65 L47,65 L47,78 Z" fill="var(--skyline-a)"/>
     <!-- Right building cluster -->
@@ -298,18 +298,18 @@
     <circle class="beacon-dim" cx="73"   cy="60" r="0.4"/>
     <circle class="beacon-dim" cx="77"   cy="60" r="0.4"/>
     <!-- Sphere lower hemisphere -->
-    <path d="M 69,26 A 6,6 0 0 0 81,26 Z" fill="var(--skyline-c)"/>
+    <path d="M 70.5,26 A 4.5,4.5 0 0 0 79.5,26 Z" fill="var(--skyline-c)"/>
     <!-- Equatorial band (rx tucked inside the sphere so the stroke doesn't wing out) -->
-    <ellipse cx="75" cy="26" rx="5.5" ry="1.6" fill="none" stroke="var(--ring)" stroke-width="1"/>
+    <ellipse cx="75" cy="26" rx="4.2" ry="1.2" fill="none" stroke="var(--ring)" stroke-width="1"/>
     <!-- Antenna mounting base (drawn BEFORE upper hemisphere so sphere's curve masks the platform's bottom edge — it appears to emerge from the sphere) -->
-    <rect x="73" y="18" width="4" height="3" fill="var(--ring)"/>
+    <rect x="73.5" y="18" width="3" height="9" fill="var(--ring)"/>
     <!-- Sphere upper hemisphere (drawn on top to mask the band's back arc AND the platform's intrusion into the sphere) -->
-    <path d="M 69,26 A 6,6 0 0 1 81,26 Z" fill="var(--skyline-c)"/>
+    <path d="M 70.5,26 A 4.5,4.5 0 0 1 79.5,26 Z" fill="var(--skyline-c)"/>
     <!-- Needle -->
-    <rect x="74.5" y="3" width="1" height="15" fill="var(--skyline-d)"/>
+    <rect x="74.5" y="-5" width="1" height="23" fill="var(--skyline-d)"/>
     <!-- Aviation beacons along the antenna: tip and mid-stem -->
-    <circle class="beacon" cx="75" cy="2.8" r="0.7"/>
-    <circle class="beacon" cx="75" cy="10"  r="0.55" style="animation-delay: -0.4s"/>
+    <circle class="beacon" cx="75" cy="-5.5" r="0.7"/>
+    <circle class="beacon" cx="75" cy="6"    r="0.55" style="animation-delay: -0.4s"/>
     <!-- Windows: left cluster -->
     <rect class="window" x="3"  y="73" width="1.2" height="1.2" style="animation-delay: -0.8s"/>
     <rect class="window" x="10" y="66" width="1.2" height="1.2" style="animation-delay: -2.3s"/>

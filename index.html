@@ -102,8 +102,8 @@
 
     @media (prefers-reduced-motion: reduce) {
       .window, .beacon { animation: none; }
-      .status .route circle { fill: currentColor; opacity: 0.8; }
-      .status .route line { stroke: currentColor; opacity: 0.8; }
+      .route .comet, .route .ping { animation: none; opacity: 0; }
+      .route .track { opacity: 0.7; }
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -197,17 +197,45 @@
       color: var(--route);
     }
 
-    .status .route circle { fill: url(#routeShimmer); }
-    .status .route line   { stroke: url(#routeShimmer); }
-    .status .route stop   { stop-color: var(--route); }
+    .route .city  { fill: currentColor; opacity: 0.85; }
+    .route .track {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 0.55;
+      stroke-linecap: round;
+      stroke-dasharray: 1.4 1.3;
+      opacity: 0.4;
+    }
+    /* pathLength=100 with a 114 period keeps exactly one streak on the track */
+    .route .comet {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 0.9;
+      stroke-linecap: round;
+      stroke-dasharray: 14 100;
+      animation: travel 3s ease-in-out infinite alternate;
+    }
+    .route .ping {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 0.35;
+      transform-box: fill-box;
+      transform-origin: center;
+      opacity: 0;
+      animation: ping 6s ease-out infinite;
+    }
 
-    .status .route .shim-a   { animation: shimEnd   4s ease-in-out infinite; }
-    .status .route .shim-mid { animation: shimMid   4s ease-in-out infinite; }
-    .status .route .shim-b   { animation: shimStart 4s ease-in-out infinite; }
-
-    @keyframes shimEnd   { 0%, 100% { stop-opacity: 1; }    50% { stop-opacity: 0.2; } }
-    @keyframes shimMid   { 0%, 50%, 100% { stop-opacity: 0.2; } 25%, 75% { stop-opacity: 1; } }
-    @keyframes shimStart { 0%, 100% { stop-opacity: 0.2; } 50% { stop-opacity: 1; } }
+    @keyframes travel {
+      0%   { stroke-dashoffset: 14;   opacity: 0; }
+      15%  { opacity: 1; }
+      85%  { opacity: 1; }
+      100% { stroke-dashoffset: -100; opacity: 0; }
+    }
+    @keyframes ping {
+      0%       { opacity: 0.7; transform: scale(0.9); }
+      22%      { opacity: 0;   transform: scale(1.7); }
+      100%     { opacity: 0; }
+    }
 
     /* ── Skyline details ── */
 
@@ -275,7 +303,7 @@
 <main>
   <h1>Vojtech Jasny</h1>
   <p class="tagline">I build things that should exist.</p>
-  <p class="status">Berlin<svg class="route" width="60" height="11" viewBox="0 0 32 6" role="img" aria-label="and"><defs><linearGradient id="routeShimmer" gradientUnits="userSpaceOnUse" x1="2.5" x2="29.5" y1="0" y2="0"><stop class="shim-a" offset="0"/><stop class="shim-mid" offset="0.5"/><stop class="shim-b" offset="1"/></linearGradient></defs><circle cx="2.5" cy="3" r="1.3"/><line x1="5.5" y1="3" x2="26.5" y2="3" stroke-width="0.7" stroke-dasharray="2 1.5"/><circle cx="29.5" cy="3" r="1.3"/></svg>Prague</p>
+  <p class="status">Berlin<svg class="route" width="60" height="11" viewBox="0 0 32 6" role="img" aria-label="and"><path class="track" d="M4.6,3 H27.4"/><path class="comet" pathLength="100" d="M4.6,3 H27.4"/><circle class="ping" cx="2.5" cy="3" r="1.3"/><circle class="ping" cx="29.5" cy="3" r="1.3" style="animation-delay: -3s"/><circle class="city" cx="2.5" cy="3" r="1.1"/><circle class="city" cx="29.5" cy="3" r="1.1"/></svg>Prague</p>
 
   <nav>
     <a href="https://github.com/voy">github</a>

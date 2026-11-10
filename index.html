@@ -222,6 +222,15 @@
       55%      { opacity: 0.15; }
     }
 
+    .tw-hi    { stop-color: color-mix(in oklab, var(--skyline-b), white 7%); }
+    .tw-b     { stop-color: var(--skyline-b); }
+    .tw-lo    { stop-color: color-mix(in oklab, var(--skyline-b), black 18%); }
+    .tw-shine { stop-color: color-mix(in oklab, var(--skyline-c), white 14%); }
+    .tw-c     { stop-color: var(--skyline-c); }
+    .tw-c-lo  { stop-color: color-mix(in oklab, var(--skyline-c), black 22%); }
+    .tw-stripe { fill: var(--ring); }
+    .tw-band   { fill: color-mix(in oklab, var(--skyline-c), var(--skyline-d) 45%); }
+
     .beacon {
       fill: #ff6b6b;
       animation: beacon 2.2s ease-in-out infinite;
@@ -288,28 +297,47 @@
     <path d="M0,78 L0,70 L8,70 L8,63 L15,63 L15,58 L21,58 L21,62 L27,62 L27,67 L33,67 L33,71 L40,71 L40,65 L47,65 L47,78 Z" fill="var(--skyline-a)"/>
     <!-- Right building cluster -->
     <path d="M103,78 L103,65 L110,65 L110,70 L116,70 L116,67 L122,67 L122,60 L128,60 L128,57 L134,57 L134,61 L140,61 L140,66 L147,66 L147,70 L150,70 L150,78 Z" fill="var(--skyline-a)"/>
-    <!-- Fernsehturm foyer (base pavilion) — low trapezoidal plinth flaring outward at ground -->
-    <path d="M 62,78 L 65,71 L 85,71 L 88,78 Z" fill="var(--skyline-b)"/>
-    <!-- Shaft (concave profile; top tucked into the sphere to avoid a seam) -->
-    <path d="M72.3,71 C73,60 73.4,43 73.5,30 L76.5,30 C76.6,43 77,60 77.7,71 Z" fill="var(--skyline-b)"/>
+    <defs>
+      <linearGradient id="shaftShade" x1="0" x2="1" y1="0" y2="0">
+        <stop class="tw-hi" offset="0.2"/>
+        <stop class="tw-b"  offset="0.55"/>
+        <stop class="tw-lo" offset="1"/>
+      </linearGradient>
+      <radialGradient id="sphereShade" cx="0.36" cy="0.32" r="0.75">
+        <stop class="tw-shine" offset="0"/>
+        <stop class="tw-c"     offset="0.55"/>
+        <stop class="tw-c-lo"  offset="1"/>
+      </radialGradient>
+      <clipPath id="sphereClip"><circle cx="75" cy="26" r="4.5"/></clipPath>
+    </defs>
+    <!-- Fernsehturm foyer — splayed pavilion with the folded-plate (zigzag) roof -->
+    <path d="M62,78 L64.5,71.5 L66.25,70.4 L68,71.5 L69.75,70.4 L71.5,71.5 L73.25,70.4 L75,71.5 L76.75,70.4 L78.5,71.5 L80.25,70.4 L82,71.5 L83.75,70.4 L85.5,71.5 L88,78 Z" fill="var(--skyline-b)"/>
+    <!-- Shaft: conical taper, lit from the left -->
+    <path d="M71.8,71.5 C72.6,60 73.3,43 73.6,30 L76.4,30 C76.7,43 77.4,60 78.2,71.5 Z" fill="url(#shaftShade)"/>
     <!-- Dim structural aviation lights along the shaft (pairs at two heights) -->
-    <circle class="beacon-dim" cx="73.5" cy="45" r="0.4"/>
-    <circle class="beacon-dim" cx="76.5" cy="45" r="0.4"/>
-    <circle class="beacon-dim" cx="73"   cy="60" r="0.4"/>
-    <circle class="beacon-dim" cx="77"   cy="60" r="0.4"/>
-    <!-- Sphere lower hemisphere -->
-    <path d="M 70.5,26 A 4.5,4.5 0 0 0 79.5,26 Z" fill="var(--skyline-c)"/>
-    <!-- Equatorial band (rx tucked inside the sphere so the stroke doesn't wing out) -->
-    <ellipse cx="75" cy="26" rx="4.2" ry="1.2" fill="none" stroke="var(--ring)" stroke-width="1"/>
-    <!-- Antenna mounting base (drawn BEFORE upper hemisphere so sphere's curve masks the platform's bottom edge — it appears to emerge from the sphere) -->
-    <rect x="73.5" y="18" width="3" height="9" fill="var(--ring)"/>
-    <!-- Sphere upper hemisphere (drawn on top to mask the band's back arc AND the platform's intrusion into the sphere) -->
-    <path d="M 70.5,26 A 4.5,4.5 0 0 1 79.5,26 Z" fill="var(--skyline-c)"/>
-    <!-- Needle -->
-    <rect x="74.5" y="-5" width="1" height="23" fill="var(--skyline-d)"/>
-    <!-- Aviation beacons along the antenna: tip and mid-stem -->
+    <circle class="beacon-dim" cx="73.6" cy="45" r="0.4"/>
+    <circle class="beacon-dim" cx="76.4" cy="45" r="0.4"/>
+    <circle class="beacon-dim" cx="73.1" cy="60" r="0.4"/>
+    <circle class="beacon-dim" cx="76.9" cy="60" r="0.4"/>
+    <!-- Antenna: base cylinder, collar platform, then two stepped mast sections (sphere drawn after to hide the cylinder's foot) -->
+    <rect x="73.7"  y="15.5" width="2.6" height="8"  fill="var(--ring)"/>
+    <rect x="73.3"  y="15"   width="3.4" height="0.8" fill="var(--skyline-c)"/>
+    <rect x="74.35" y="3"    width="1.3" height="12" fill="var(--skyline-d)"/>
+    <rect x="74.6"  y="-5"   width="0.8" height="8"  fill="var(--skyline-d)"/>
+    <rect class="tw-stripe" x="74.35" y="7"  width="1.3" height="1.2"/>
+    <rect class="tw-stripe" x="74.35" y="11" width="1.3" height="1.2"/>
+    <!-- Sphere with soft top-left light -->
+    <circle cx="75" cy="26" r="4.5" fill="url(#sphereShade)"/>
+    <!-- Window band: seen from below, so the near arc bows upward -->
+    <path clip-path="url(#sphereClip)" d="M70,27.4 Q75,25.2 80,27.4 L80,28.9 Q75,26.7 70,28.9 Z" class="tw-band"/>
+    <rect class="window" x="71.6" y="27.3" width="0.5" height="0.6" style="animation-delay: -1.7s"/>
+    <rect class="window" x="73.2" y="26.7" width="0.5" height="0.6" style="animation-delay: -4.1s"/>
+    <rect class="window" x="74.75" y="26.55" width="0.5" height="0.6" style="animation-delay: -0.3s"/>
+    <rect class="window" x="76.3" y="26.7" width="0.5" height="0.6" style="animation-delay: -2.9s"/>
+    <rect class="window" x="77.9" y="27.3" width="0.5" height="0.6" style="animation-delay: -5.4s"/>
+    <!-- Aviation beacons: tip and the mast step -->
     <circle class="beacon" cx="75" cy="-5.5" r="0.7"/>
-    <circle class="beacon" cx="75" cy="6"    r="0.55" style="animation-delay: -0.4s"/>
+    <circle class="beacon" cx="75" cy="3"    r="0.55" style="animation-delay: -0.4s"/>
     <!-- Windows: left cluster -->
     <rect class="window" x="3"  y="73" width="1.2" height="1.2" style="animation-delay: -0.8s"/>
     <rect class="window" x="10" y="66" width="1.2" height="1.2" style="animation-delay: -2.3s"/>

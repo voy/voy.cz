@@ -62,7 +62,7 @@
         --ring:      #555d68;
         --route:     #9a9390;
       }
-      .window { display: none; }
+      .window, .clock { display: none; }
     }
 
     /* Sky tint by Berlin hour — subtle but visible. Route shimmer tracks the sky. */
@@ -250,6 +250,11 @@
       55%      { opacity: 0.15; }
     }
 
+    .sky-far  { fill: color-mix(in oklab, var(--skyline-a), var(--bg) 40%); }
+    .sky-near { fill: color-mix(in oklab, var(--skyline-a), var(--skyline-b) 40%); }
+    .pane     { fill: var(--bg); opacity: 0.35; }
+    .clock    { fill: #ffd27a; opacity: 0.5; }
+
     .tw-hi    { stop-color: color-mix(in oklab, var(--skyline-b), white 7%); }
     .tw-b     { stop-color: var(--skyline-b); }
     .tw-lo    { stop-color: color-mix(in oklab, var(--skyline-b), black 18%); }
@@ -321,11 +326,10 @@
 <footer>
   <!-- ── Berlin skyline ── -->
   <svg width="150" height="90" viewBox="0 -10 150 90">
-    <!-- Left building cluster -->
-    <path d="M0,78 L0,70 L8,70 L8,63 L15,63 L15,58 L21,58 L21,62 L27,62 L27,67 L33,67 L33,71 L40,71 L40,65 L47,65 L47,78 Z" fill="var(--skyline-a)"/>
-    <!-- Right building cluster -->
-    <path d="M103,78 L103,65 L110,65 L110,70 L116,70 L116,67 L122,67 L122,60 L128,60 L128,57 L134,57 L134,61 L140,61 L140,66 L147,66 L147,70 L150,70 L150,78 Z" fill="var(--skyline-a)"/>
     <defs>
+      <pattern id="plattenGrid" width="2" height="2" patternUnits="userSpaceOnUse">
+        <rect class="pane" x="0.55" y="0.65" width="0.9" height="0.7"/>
+      </pattern>
       <linearGradient id="shaftShade" x1="0" x2="1" y1="0" y2="0">
         <stop class="tw-hi" offset="0.2"/>
         <stop class="tw-b"  offset="0.55"/>
@@ -338,6 +342,30 @@
       </radialGradient>
       <clipPath id="sphereClip"><circle cx="75" cy="26" r="4.5"/></clipPath>
     </defs>
+    <!-- Far row, hazed toward the sky; the tall slab is the Park Inn on Alexanderplatz -->
+    <path class="sky-far" d="M0,77 L0,58 L6,58 L6,55 L13,55 L13,60 L24,60 L24,57 L31,57 L31,62 L40,62 L40,64 L48,64 L48,77 Z"/>
+    <path class="sky-far" d="M104,77 L104,60 L107,60 L107,49 L116,49 L116,59 L134,59 L134,55 L142,55 L142,61 L150,61 L150,77 Z"/>
+    <rect x="108" y="50" width="8" height="20" fill="url(#plattenGrid)" opacity="0.5"/>
+    <g opacity="0.6">
+      <rect class="window" x="110.55" y="52.65" width="0.9" height="0.7" style="animation-delay: -2.2s"/>
+      <rect class="window" x="112.55" y="58.65" width="0.9" height="0.7" style="animation-delay: -5.3s"/>
+      <rect class="window" x="108.55" y="64.65" width="0.9" height="0.7" style="animation-delay: -0.7s"/>
+    </g>
+    <!-- Near row, left: two Plattenbau slabs, then the Marienkirche -->
+    <rect class="sky-near" x="2"  y="62" width="18" height="15"/>
+    <rect class="sky-near" x="22" y="68" width="20" height="9"/>
+    <rect x="2"  y="64" width="18" height="12" fill="url(#plattenGrid)"/>
+    <rect x="22" y="70" width="20" height="6"  fill="url(#plattenGrid)"/>
+    <path class="sky-near" d="M44.5,77 L44.5,64 L45,64 L45,62.5 L45.3,62.5 L46,55 L46.7,62.5 L47,62.5 L47,64 L47.5,64 L47.5,77 Z"/>
+    <path class="sky-near" d="M47.5,77 L47.5,70.5 L49,68.6 L56.5,68.6 L58,70.5 L58,77 Z"/>
+    <!-- Near row, right: Rotes Rathaus with its clock tower, a filler block, a Plattenbau tower and slab -->
+    <path class="sky-near" d="M91,77 L91,68.3 L93,68.3 L93,69 L96.5,69 L96.5,62 L97,62 L97,60.5 L97.9,60.5 L97.9,58 L98.1,58 L98.1,60.5 L99,60.5 L99,62 L99.5,62 L99.5,69 L103,69 L103,68.3 L105,68.3 L105,77 Z"/>
+    <circle class="clock" cx="98" cy="63.8" r="0.6"/>
+    <rect class="sky-near" x="106" y="71" width="11" height="6"/>
+    <rect class="sky-near" x="118" y="56" width="10" height="21"/>
+    <rect class="sky-near" x="130" y="66" width="20" height="11"/>
+    <rect x="118" y="58" width="10" height="18" fill="url(#plattenGrid)"/>
+    <rect x="130" y="68" width="20" height="8"  fill="url(#plattenGrid)"/>
     <!-- Fernsehturm foyer — splayed pavilion with the folded-plate (zigzag) roof -->
     <path d="M62,78 L64.5,71.5 L66.25,70.4 L68,71.5 L69.75,70.4 L71.5,71.5 L73.25,70.4 L75,71.5 L76.75,70.4 L78.5,71.5 L80.25,70.4 L82,71.5 L83.75,70.4 L85.5,71.5 L88,78 Z" fill="var(--skyline-b)"/>
     <!-- Shaft: conical taper, lit from the left -->
@@ -366,32 +394,55 @@
     <!-- Aviation beacons: tip and the mast step -->
     <circle class="beacon" cx="75" cy="-5.5" r="0.7"/>
     <circle class="beacon" cx="75" cy="3"    r="0.55" style="animation-delay: -0.4s"/>
-    <!-- Windows: left cluster -->
-    <rect class="window" x="3"  y="73" width="1.2" height="1.2" style="animation-delay: -0.8s"/>
-    <rect class="window" x="10" y="66" width="1.2" height="1.2" style="animation-delay: -2.3s"/>
-    <rect class="window" x="12" y="72" width="1.2" height="1.2" style="animation-delay: -5.1s"/>
-    <rect class="window" x="16" y="61" width="1.2" height="1.2" style="animation-delay: -1.4s"/>
-    <rect class="window" x="18" y="67" width="1.2" height="1.2" style="animation-delay: -3.7s"/>
-    <rect class="window" x="16" y="73" width="1.2" height="1.2" style="animation-delay: -6.2s"/>
-    <rect class="window" x="23" y="66" width="1.2" height="1.2" style="animation-delay: -0.2s"/>
-    <rect class="window" x="29" y="71" width="1.2" height="1.2" style="animation-delay: -4.8s"/>
-    <rect class="window" x="42" y="68" width="1.2" height="1.2" style="animation-delay: -2.9s"/>
-    <rect class="window" x="44" y="73" width="1.2" height="1.2" style="animation-delay: -5.6s"/>
+    <!-- Windows: Plattenbau lights sit on the facade grid (x = 2k+0.55, y = 2m+0.65) -->
+    <rect class="window" x="4.55"  y="64.65" width="0.9" height="0.7" style="animation-delay: -0.8s"/>
+    <rect class="window" x="10.55" y="64.65" width="0.9" height="0.7" style="animation-delay: -2.3s"/>
+    <rect class="window" x="6.55"  y="66.65" width="0.9" height="0.7" style="animation-delay: -5.1s"/>
+    <rect class="window" x="14.55" y="68.65" width="0.9" height="0.7" style="animation-delay: -1.4s"/>
+    <rect class="window" x="2.55"  y="70.65" width="0.9" height="0.7" style="animation-delay: -3.7s"/>
+    <rect class="window" x="8.55"  y="70.65" width="0.9" height="0.7" style="animation-delay: -6.2s"/>
+    <rect class="window" x="16.55" y="72.65" width="0.9" height="0.7" style="animation-delay: -0.2s"/>
+    <rect class="window" x="12.55" y="74.65" width="0.9" height="0.7" style="animation-delay: -4.8s"/>
+    <rect class="window" x="4.55"  y="74.65" width="0.9" height="0.7" style="animation-delay: -2.9s"/>
+    <rect class="window" x="24.55" y="70.65" width="0.9" height="0.7" style="animation-delay: -5.6s"/>
+    <rect class="window" x="32.55" y="70.65" width="0.9" height="0.7" style="animation-delay: -1.1s"/>
+    <rect class="window" x="28.55" y="72.65" width="0.9" height="0.7" style="animation-delay: -3.3s"/>
+    <rect class="window" x="38.55" y="72.65" width="0.9" height="0.7" style="animation-delay: -6.6s"/>
+    <rect class="window" x="22.55" y="74.65" width="0.9" height="0.7" style="animation-delay: -0.5s"/>
+    <rect class="window" x="34.55" y="74.65" width="0.9" height="0.7" style="animation-delay: -4.2s"/>
+    <!-- Windows: Marienkirche nave (tall lancets) -->
+    <rect class="window" x="50"   y="71.5" width="0.6" height="2" style="animation-delay: -2.6s"/>
+    <rect class="window" x="52.5" y="71.5" width="0.6" height="2" style="animation-delay: -5.9s"/>
+    <rect class="window" x="55"   y="71.5" width="0.6" height="2" style="animation-delay: -1.8s"/>
     <!-- Windows: Fernsehturm foyer (tall vertical panels of the glass facade) -->
     <rect class="window" x="67"   y="74"   width="0.8" height="3"   style="animation-delay: -1.2s"/>
     <rect class="window" x="69.5" y="73"   width="0.8" height="4"   style="animation-delay: -3.8s"/>
     <rect class="window" x="80"   y="73"   width="0.8" height="4"   style="animation-delay: -0.6s"/>
     <rect class="window" x="82.5" y="74"   width="0.8" height="3"   style="animation-delay: -4.4s"/>
-    <!-- Windows: right cluster -->
-    <rect class="window" x="105" y="69" width="1.2" height="1.2" style="animation-delay: -4.3s"/>
-    <rect class="window" x="107" y="74" width="1.2" height="1.2" style="animation-delay: -0.6s"/>
-    <rect class="window" x="118" y="72" width="1.2" height="1.2" style="animation-delay: -2.5s"/>
-    <rect class="window" x="124" y="63" width="1.2" height="1.2" style="animation-delay: -5.8s"/>
-    <rect class="window" x="124" y="70" width="1.2" height="1.2" style="animation-delay: -1.9s"/>
-    <rect class="window" x="130" y="60" width="1.2" height="1.2" style="animation-delay: -3.4s"/>
-    <rect class="window" x="130" y="72" width="1.2" height="1.2" style="animation-delay: -6.1s"/>
-    <rect class="window" x="136" y="72" width="1.2" height="1.2" style="animation-delay: -0.9s"/>
-    <rect class="window" x="142" y="72" width="1.2" height="1.2" style="animation-delay: -4.6s"/>
+    <!-- Windows: Rotes Rathaus (tall arched bays) -->
+    <rect class="window" x="92.5"  y="71" width="0.6" height="1.6" style="animation-delay: -4.3s"/>
+    <rect class="window" x="101"   y="71" width="0.6" height="1.6" style="animation-delay: -0.6s"/>
+    <rect class="window" x="103.3" y="71" width="0.6" height="1.6" style="animation-delay: -2.5s"/>
+    <!-- Windows: shopfront under the Park Inn -->
+    <rect class="window" x="108" y="73.5" width="2.5" height="1.5" style="animation-delay: -3.9s"/>
+    <rect class="window" x="113" y="73.5" width="2.5" height="1.5" style="animation-delay: -1.3s"/>
+    <!-- Windows: right Plattenbau tower and slab -->
+    <rect class="window" x="120.55" y="58.65" width="0.9" height="0.7" style="animation-delay: -5.8s"/>
+    <rect class="window" x="124.55" y="60.65" width="0.9" height="0.7" style="animation-delay: -1.9s"/>
+    <rect class="window" x="118.55" y="62.65" width="0.9" height="0.7" style="animation-delay: -3.4s"/>
+    <rect class="window" x="122.55" y="64.65" width="0.9" height="0.7" style="animation-delay: -6.1s"/>
+    <rect class="window" x="126.55" y="66.65" width="0.9" height="0.7" style="animation-delay: -0.9s"/>
+    <rect class="window" x="120.55" y="68.65" width="0.9" height="0.7" style="animation-delay: -4.6s"/>
+    <rect class="window" x="124.55" y="70.65" width="0.9" height="0.7" style="animation-delay: -2.1s"/>
+    <rect class="window" x="118.55" y="72.65" width="0.9" height="0.7" style="animation-delay: -5.2s"/>
+    <rect class="window" x="122.55" y="74.65" width="0.9" height="0.7" style="animation-delay: -0.4s"/>
+    <rect class="window" x="132.55" y="68.65" width="0.9" height="0.7" style="animation-delay: -3.6s"/>
+    <rect class="window" x="140.55" y="68.65" width="0.9" height="0.7" style="animation-delay: -6.4s"/>
+    <rect class="window" x="136.55" y="70.65" width="0.9" height="0.7" style="animation-delay: -1.6s"/>
+    <rect class="window" x="146.55" y="70.65" width="0.9" height="0.7" style="animation-delay: -4.9s"/>
+    <rect class="window" x="130.55" y="72.65" width="0.9" height="0.7" style="animation-delay: -2.7s"/>
+    <rect class="window" x="142.55" y="74.65" width="0.9" height="0.7" style="animation-delay: -5.5s"/>
+    <rect class="window" x="138.55" y="74.65" width="0.9" height="0.7" style="animation-delay: -0.1s"/>
     <!-- Ground -->
     <rect x="0" y="77" width="150" height="3" fill="var(--skyline-a)"/>
   </svg>
